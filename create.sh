@@ -1,3 +1,6 @@
+# This script takes a series of arguements including a git url, folder path, and folder name.  The URL is used to clone to the folder 
+# path and folder directory and then the resulting repository is filtered using filter-repo.
+
 while test $# -gt 0
 do
     URL="$1"
