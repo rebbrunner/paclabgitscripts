@@ -5,6 +5,8 @@
 # references during cleaning.
 
 dir="$1"
+zpool="$2"
+name="$3"
 
 cd "$dir"
 
@@ -22,3 +24,7 @@ mv objects/pack pack
 pack=$(ls pack | grep '.pack')
 git unpack-objects < pack/"$pack"
 cd ../
+
+# Snapshot
+#timestampe=$(date +"$T")
+#zfs snapshot "$zpool"/"$name"@"$timestamp"
