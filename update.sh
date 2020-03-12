@@ -7,8 +7,18 @@
 dir="$1"
 
 cd "$dir"
+
+# Update repo, accept all incoming changes, allow divergent histories, and create shallow pull
 git pull -X theirs --allow-unrelated-histories --depth=1
+
+# Filter out unwanted files
 remote=$(git remote) && url=$(git remote get-url --push $remote)
-git filter-repo --invert-paths --path-match data/
-git filter-repo --invert-paths --path-match output/
+git filter-repo --path-regex '^.*/*.java$'
 git remote add origin "$url"
+
+# Unpack objects
+cd .git
+mv objects/pack pack
+pack=$(ls pack | grep '.pack')
+git unpack-objects < pack/"$pack"
+cd ../
