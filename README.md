@@ -6,8 +6,9 @@ Date: 12 March 2020
 
 ## Description
 
-Create script for cloning and filtering a list of git projects.<br>
-Update script for looping through a directory pulling updates
+    create.sh   -> Clone a repository, enable sparse checkouts, filter unwanted files, unpack objects, snapshot folder
+    update.sh   -> Perform a shallow pull and resolve possible conflicts
+    failsafe.sh -> Recover from corrupted repository state
 
 ## Requirements
 
