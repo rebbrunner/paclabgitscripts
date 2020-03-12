@@ -14,8 +14,10 @@ Update script for looping through a directory pulling updates
 - Git
 - Filter-Repo installed to path
 - Python
+- OpenZFS for snapshots
 
 ## Usage
 
-- Run clone script with: `./create.sh GIT_PATH_1 GIT_PATH_2 ... GIT_PATH_XX`
-- Run update script with: `./update.sh DIR_PATH
+- Run create script: `./create.sh GIT_URL ZPOOL_NAME PROJECT_NAME`
+- Run update script: `./update.sh ZPOOL_NAME PROJECT_NAME`
+- Run failsafe script: `./failsafe.sh ZPOOL_NAME PROJECT_NAME`

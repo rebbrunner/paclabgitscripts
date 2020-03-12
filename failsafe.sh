@@ -33,4 +33,3 @@ git checkout master
 # Snapshot
 #timestamp=$(date +"%T")
 #zfs snapshot "$zpool"/"$project_name"@"$timestamp"
-
