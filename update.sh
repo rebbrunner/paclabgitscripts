@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # This script accepts a directory containing a git project and updates it.  It creates a shallow update and assumes in 
 # the case of merge conflicts to simply accept all incoming changes.  We also allow unrelated histories since using shallow clones 
 # and pulls creates divergent histories.  Filter repo is used to filter out unwanted files.  These lines can be altered for production 
@@ -5,8 +7,6 @@
 # references during cleaning.
 
 dir="$1"
-zpool="$2"
-name="$3"
 
 cd "$dir"
 
@@ -24,7 +24,3 @@ mv objects/pack pack
 pack=$(ls pack | grep '.pack')
 git unpack-objects < pack/"$pack"
 cd ../
-
-# Snapshot
-#timestampe=$(date +"$T")
-#zfs snapshot "$zpool"/"$name"@"$timestamp"

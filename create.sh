@@ -1,8 +1,8 @@
-# This script takes a git url, zpool name, and project name.  The URL is used to clone to the current directory.
+#!/usr/bin/env bash
+
+# This script takes a git url.  The URL is used to clone to the current directory.
 
 url="$1"
-zpool="$2"
-project_name="$3"
 
 # Enable sparse checkout
 git init
@@ -28,7 +28,3 @@ cd ../
 
 # Checkout working tree
 git checkout master
-
-# Snapshot
-#timestamp=$(date +"%T")
-#zfs snapshot "$zpool"/"$project_name"@"$timestamp"
