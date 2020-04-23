@@ -1,3 +1,5 @@
+#!/bin/bash
+
 zfs_fs="zfs/comp"
 repo_install_path="/bin/filter-repo"
 export PATH="$PATH:${repo_install_path}"
@@ -24,8 +26,6 @@ size=$(du -sb | cut -f 1)
 cd ../
 echo "${url},${size}" >> filtered.csv
 
-mv "${name}_shallow" "/${zfs_fs}"
-sleep 5s
-ratio=$(zfs get compressratio "$zfs_fs" | grep "$zfs_fs" | cut -f1,5 -d" ")
-echo "${url},${ratio}" >> compression.csv
+zfs create "${zfs_fs}/${name}"
+mv "${name}_shallow" "/${zfs_fs}/${name}/"
 
