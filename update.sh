@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 # This script accepts a directory containing a git project and updates it.  It creates a shallow update and assumes in 
 # the case of merge conflicts to simply accept all incoming changes.  We also allow unrelated histories since using shallow clones 

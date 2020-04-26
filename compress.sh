@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 zfs_fs="zfs/comp"
 url="$1"

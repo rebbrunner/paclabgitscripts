@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 # This script takes a git url.  The URL is used to clone to the current directory.
 

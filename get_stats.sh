@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 zfs_fs="zfs/comp"
 repo_install_path="/bin/filter-repo"

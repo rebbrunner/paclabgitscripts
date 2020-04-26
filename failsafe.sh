@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 remote=$(git remote) && url=$(git remote get-url --push $remote)
 rm -rf *
