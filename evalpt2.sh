@@ -4,7 +4,7 @@
 
 url=$1
 # Format 'Mon DD YYYY' space delimited %b %d %Y
-startday="Jun 02 2020"
+startday="Jun 03 2020"
 startfolder=$(pwd)
 repo_install_path="/bin/filter-repo"
 zpool="zfs"
@@ -21,12 +21,10 @@ fi
 cd "$name"
 git clone "$url" "$now"
 
-# Unpack objects if packed
-cd "${now}/.git"
-mv objects/pack pack
-pack=$(ls pack | grep '.pack')
-git unpack-objects < pack/"$pack"
-cd ../
+cd "$now"
+remote=$(git remote) && url=$(git remote get-url --push $remote)
+git filter-repo --path-regex '^.*.java$' --force
+git remote add origin "$url"
 
 # Get stats
 size=$(du -sb | cut -f 1)
