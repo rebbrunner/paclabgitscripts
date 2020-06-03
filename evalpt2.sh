@@ -21,6 +21,7 @@ fi
 cd "$name"
 git clone "$url" "$now"
 
+# Filter clone
 cd "$now"
 remote=$(git remote) && url=$(git remote get-url --push $remote)
 git filter-repo --path-regex '^.*.java$' --force
