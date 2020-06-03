@@ -1,7 +1,5 @@
 #!/bin/sh
 
-# Collects data every snapshot - might be overkill.  Justfication - naive approach is a collection of folders for each snapshot, our approach is one file.  If we wait until the end, in order to detect force pushes we will have to test every snapshot against every different folder in the naive approach, which means matching dates with snapshot names.
-
 url=$1
 # Format 'Mon DD YYYY' space delimited %b %d %Y
 startday="Jun 03 2020"
