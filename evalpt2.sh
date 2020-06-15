@@ -2,7 +2,7 @@
 
 url=$1
 # Format 'Mon DD YYYY' space delimited %b %d %Y
-startday="Jun 03 2020"
+startday="Jun 15 2020"
 startfolder=$(pwd)
 repo_install_path="/bin/filter-repo"
 zpool="zfs"
@@ -27,6 +27,10 @@ git remote add origin "$url"
 # Get stats
 size=$(du -sb | cut -f 1)
 commits=$(git rev-list --count HEAD --since="${startday}")
+if [ "$commits" = "" ] 
+then
+	commits=0
+fi
 cd ../../
 echo "${url},${commits},${size}" >> naive.csv
 
@@ -62,6 +66,10 @@ zfs snapshot -r "${zpool}/${name}@${now}"
 # Get stats
 size=$(du -sb | cut -f 1)
 commits=$(git rev-list --count HEAD --since="${startday}")
+if [ "$commits" = "" ]
+then
+	commits=0
+fi
 # start location
 cd "$startfolder"
 
