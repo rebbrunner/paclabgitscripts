@@ -2,7 +2,7 @@
 
 url=$1
 # Format 'Mon DD YYYY' space delimited %b %d %Y
-startday="Jun 15 2020"
+startday="Jun 14 2020"
 startfolder=$(pwd)
 repo_install_path="/bin/filter-repo"
 zpool="zfs"
@@ -45,7 +45,8 @@ then
     git clone "$url" .
 else
     cd "/${zpool}/${name}"
-    git pull -X theirs --allow-unrelated-histories
+    branch=$(git branch | grep '*' | cut -d" " -f2)
+    git pull -X theirs --allow-unrelated-histories origin "$branch"
 fi
 
 # Look for dangling objects
