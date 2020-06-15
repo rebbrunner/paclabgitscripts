@@ -21,16 +21,19 @@ git clone "$url" "$now"
 
 # Filter clone
 cd "$now"
-git filter-repo --path-regex '^.*.java$' --force
-git remote add origin "$url"
 
-# Get stats
-size=$(du -sb | cut -f 1)
+# Count number of commits
 commits=$(git rev-list --count HEAD --since="${startday}")
 if [ "$commits" = "" ] 
 then
 	commits=0
 fi
+
+git filter-repo --path-regex '^.*.java$' --force
+git remote add origin "$url"
+
+# Get stats
+size=$(du -sb | cut -f 1)
 cd ../../
 echo "${url},${commits},${size}" >> naive.csv
 
@@ -49,6 +52,12 @@ fi
 branch=$(git branch | grep '*' | cut -d" " -f2)
 dangling=$(git fsck --full "origin/${branch}")
 
+commits=$(git rev-list --count HEAD --since="${startday}")
+if [ "$commits" = "" ]
+then
+	commits=0
+fi
+
 # Filter project
 git filter-repo --path-regex '^.*/*.java$' --force
 git remote add origin "$url"
@@ -63,13 +72,9 @@ cd ../
 # Snapshot
 zfs snapshot -r "${zpool}/${name}@${now}"
 
-# Get stats
+# Get size
 size=$(du -sb | cut -f 1)
-commits=$(git rev-list --count HEAD --since="${startday}")
-if [ "$commits" = "" ]
-then
-	commits=0
-fi
+
 # start location
 cd "$startfolder"
 
