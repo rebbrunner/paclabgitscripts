@@ -14,7 +14,6 @@ git remote add origin "$url"
 git fetch --depth=1
 
 # Filter out unwanted objects
-remote=$(git remote) && url=$(git remote get-url --push $remote)
 git filter-repo --path-regex '^.*/*.java$'
 git remote add origin "$url"
 

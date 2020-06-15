@@ -14,7 +14,7 @@ cd "$dir"
 git pull -X theirs --allow-unrelated-histories --depth=1
 
 # Filter out unwanted files
-remote=$(git remote) && url=$(git remote get-url --push $remote)
+rl=$(git remote get-url --push origin)
 git filter-repo --path-regex '^.*/*.java$'
 git remote add origin "$url"
 

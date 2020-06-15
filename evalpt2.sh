@@ -21,7 +21,6 @@ git clone "$url" "$now"
 
 # Filter clone
 cd "$now"
-remote=$(git remote) && url=$(git remote get-url --push $remote)
 git filter-repo --path-regex '^.*.java$' --force
 git remote add origin "$url"
 
@@ -43,9 +42,8 @@ else
 fi
 
 # Look for dangling objects
-remote=$(git remote) && url=$(git remote get-url --push $remote)
 branch=$(git branch | grep '*' | cut -d" " -f2)
-dangling=$(git fsck --full "${remote}/${branch}")
+dangling=$(git fsck --full "origin/${branch}")
 
 # Filter project
 git filter-repo --path-regex '^.*/*.java$' --force
