@@ -1,0 +1,30 @@
+#!/bin/bash
+
+url=$1
+startday="Jun 17 2020"
+repo_install_path="/bin/filter-repo"
+zpool="zfs"
+startfolder=$(pwd)
+
+export PATH="$PATH:${repo_install_path}"
+
+now=$(date +"%b %d %Y")
+name=$(echo "$url" | md5sum | cut -d" " -f1)
+
+# Naive size
+cd "$name"
+naive_size=$(du -sb | cut -f 1)
+
+# Efficient size
+cd "/${zpool}/${name}"
+efficient_size=$(du -sb | cut -f 1)
+
+# Commit number
+commits=$(git rev-list --count HEAD --since "$startday" --author='r <r>' --invert-grep)
+
+# Force pushes
+branch=$(git remote show origin | grep 'HEAD branch' | cut -d" " -f5)
+dangling=$(git fsck --full "$branch" | wc -l)
+
+# Record data
+echo "${url},${naive_size},${efficient_size},${commits},${dangling}" >> "${startfolder}/meta.csv"

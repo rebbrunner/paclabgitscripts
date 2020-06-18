@@ -1,0 +1,38 @@
+#!/bin/bash
+
+url=$1
+startfolder=$(pwd)
+repo_install_path="/bin/filter-repo"
+zpool="zfs"
+
+export PATH="$PATH:${repo_install_path}"
+
+now=$(date +"%b %d %Y")
+name=$(echo "$url" | md5sum | cut -d" " -f1)
+
+# Naive
+cd "$name"
+git clone "$url" "$now"
+cd "$now"
+
+git filter-repo --path-regex '^.*\.java$' --force
+git remote add origin "$url"
+
+# Efficient
+cd "/${zpool}/${name}"
+
+branch=$(git remote show origin | grep 'HEAD branch' | cut -d" " -f5)
+git pull origin "$branch" --no-edit
+git repack -d
+
+git filter-repo --path-regex '^.*\.java$' --force
+git remote add origin "$url"
+
+cd .git
+mv objects/pack pack
+pack=$(ls pack | grep '.pack')
+git unpack-objects < pack/"$pack"
+rm -rf pack
+cd ../
+
+zfs snapshot -r "${zpool}/${name}@${now}"
