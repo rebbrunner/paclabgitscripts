@@ -11,10 +11,10 @@ dir="$1"
 cd "$dir"
 
 # Update repo, accept all incoming changes, allow divergent histories, and create shallow pull
+git repack -d
 git pull -X theirs --allow-unrelated-histories --depth=1
 
 # Filter out unwanted files
-rl=$(git remote get-url --push origin)
 git filter-repo --path-regex '^.*/*.java$'
 git remote add origin "$url"
 
